@@ -1,0 +1,16 @@
+.form {
+  background: white;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: -5px 5px 15px 10px rgba(128, 128, 128, 0.39);
+  min-height: 100px;
+}
+
+.table {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: -5px 5px 15px 10px rgba(128, 128, 128, 0.39);
+  min-height: 100px;
+}

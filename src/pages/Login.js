@@ -6,9 +6,14 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { loginUser } from "../utility/axiosHelper";
 import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [form, setForm] = useState({});
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "rpas@gmail.com",
+    pin: 1234,
+  });
   const [response, setResponse] = useState({});
 
   const handleOnChange = (e) => {
@@ -21,8 +26,14 @@ export const Login = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await loginUser(data);
+    const { data } = await loginUser(form);
     setResponse(data);
+
+    if (data.status === "success") {
+      navigate("/dashboard");
+
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+    }
   };
 
   const inputFields = [
@@ -32,6 +43,7 @@ export const Login = () => {
       required: true,
       name: "email",
       type: "email",
+      value: form.email,
     },
     {
       label: "pin",
@@ -39,8 +51,7 @@ export const Login = () => {
       required: true,
       name: "pin",
       type: "number",
-      min: 1000,
-      max: 9999,
+      value: form.pin,
     },
   ];
 
