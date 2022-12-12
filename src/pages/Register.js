@@ -1,14 +1,30 @@
+import { Alert } from "react-bootstrap";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { CustomeInput } from "../components/layout/CustomeInput";
-import { Layout } from "../components/layout/Layout";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import axios from "axios";
-import { Alert } from "react-bootstrap";
-import { postUser } from "../utility/axiosHelper";
+import { CustomeInput } from "../components/custom-input/CustomeInput";
+import { Layout } from "../components/layout/Layout";
+import { postUser } from "../utils/axiosHelper";
 
 export const Register = () => {
+  const [form, setForm] = useState({});
+  const [response, setResponse] = useState({});
+
+  const handleOnChange = (e) => {
+    const { value, name } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const { data } = await postUser(form);
+    setResponse(data);
+  };
+
   const inputFields = [
     {
       label: "Name",
@@ -35,23 +51,7 @@ export const Register = () => {
     },
   ];
 
-  const [form, setForm] = useState({});
-  const [response, setResponse] = useState({});
-
-  const handleOnChange = (e) => {
-    const { value, name } = e.target; //event comes from console. and name is giving a property of value like name, email, pin. hanlde on change recieve a data.
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const { data } = await postUser(form);
-    setResponse(data);
-  };
-  console.log(response);
+  console.log(form);
   return (
     <Layout>
       <Form className="login-page" onSubmit={handleOnSubmit}>

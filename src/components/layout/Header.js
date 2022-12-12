@@ -5,31 +5,36 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const [user, setUser] = useState({});
+  const [user, setuser] = useState({});
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
-    setUser(user);
+
+    setuser(user);
   }, []);
 
+  const handleOnLogout = () => {
+    sessionStorage.removeItem("user");
+  };
   return (
     <Navbar bg="primary" expand="md" variant="dark">
       <Container>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {user?._id ? (
               <>
                 <div className="nav-link fw-bolder text-warning">
-                  Welcom Back! {user?.name}
+                  Welcom back {user?.name}
                 </div>
-                <Link to="#" className="nav-link">
+                <Link to="#" className="nav-link" onSubmit={handleOnLogout}>
                   Logout
                 </Link>
               </>
             ) : (
               <>
-                <Link href="/" className="nav-link">
+                <Link to="/" className="nav-link">
                   Login
                 </Link>
                 <Link to="/register" className="nav-link">
