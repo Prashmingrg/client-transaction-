@@ -33,6 +33,8 @@ export const TransForm = ({ getTrans }) => {
     console.log(status, message);
     toast[status](message);
 
+    status === "success" && getTrans();
+
     // reset the form
     // setForm(initialState);
   };
@@ -48,8 +50,8 @@ export const TransForm = ({ getTrans }) => {
               value={form.type}
             >
               <option>Choose...</option>
-              <option value="income">Income</option>
-              <option value="expenses">Expenses</option>
+              <option value="income">income</option>
+              <option value="expenses">expenses</option>
             </Form.Select>
           </Col>
           <Col md="5">

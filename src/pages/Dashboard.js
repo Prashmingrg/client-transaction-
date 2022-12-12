@@ -21,14 +21,15 @@ const Dashboard = () => {
 
     setTrans(trans);
   };
+
   console.log(trans);
   return (
     <Layout>
       <div className="form">
-        <TransForm />
+        <TransForm getTrans={getTrans} />
       </div>
       <div className="table">
-        <TransTable trans={trans} />
+        <TransTable trans={trans} getTrans={getTrans} />
       </div>
     </Layout>
   );
